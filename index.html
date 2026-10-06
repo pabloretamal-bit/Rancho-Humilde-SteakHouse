@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rancho Humilde — Wagyu, fuego y arte en Ancud, Chiloé.">
+  <meta name="theme-color" content="#0b0b0a">
+  <title>RANCHO HUMILDE — Wagyu · Ancud</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="Rancho Humilde inicio">
+      <span class="brand-mark">RH</span>
+      <span class="brand-name">RANCHO HUMILDE</span>
+    </a>
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a href="#carne">WAGYU</a>
+      <a href="#carta">CARTA</a>
+      <a href="#experiencia">EXPERIENCIA</a>
+      <a href="#shows">SHOWS</a>
+    </nav>
+    <a class="nav-cta magnetic" href="#reserva">RESERVAR <span>↗</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <main id="top">
+    <section class="hero section-dark" aria-label="Rancho Humilde">
+      <div class="hero-media" data-parallax="0.10">
+        <div class="hero-image"></div>
+        <div class="hero-vignette"></div>
+        <div class="embers" id="embers"></div>
+      </div>
+      <div class="hero-content container">
+        <p class="eyebrow reveal">WAGYU · FUEGO · ANCUD</p>
+        <h1 class="hero-title reveal reveal-delay-1">RANCHO<br><em>HUMILDE</em></h1>
+        <div class="hero-bottom reveal reveal-delay-2">
+          <p class="hero-tagline">La parrilla hace lo suyo,<br><strong>nosotros el arte.</strong></p>
+          <div class="hero-actions">
+            <a class="btn btn-fill magnetic" href="#reserva">RESERVA <span>↗</span></a>
+            <a class="btn btn-ghost magnetic" href="#carta">LA CARTA <span>↗</span></a>
+            <a class="btn btn-ghost magnetic" href="#shows">PRÓXIMOS SHOWS <span>↗</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-cue"><span>SCROLL</span><i></i></div>
+    </section>
+
+    <section class="manifesto section-light" id="experiencia">
+      <div class="container manifesto-grid">
+        <div class="section-index">01 / EXPERIENCIA</div>
+        <div>
+          <p class="eyebrow dark">EL ARTE DEL FUEGO</p>
+          <h2 class="display dark">Hay carnes que se cocinan.<br><em>Y carnes que se convierten en experiencia.</em></h2>
+          <p class="body-copy">Una mesa, un fuego y una noche pensada para quedarse en la memoria. Rancho Humilde nace como un steakhouse de autor en Ancud: oscuro, preciso y sin ruido innecesario.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="split-image section-dark">
+      <div class="split-copy container">
+        <p class="eyebrow">FUEGO LENTO. ATENCIÓN AL DETALLE.</p>
+        <h2 class="display light">La parrilla<br><em>hace lo suyo.</em></h2>
+      </div>
+      <div class="fire-image" data-parallax="0.16" role="img" aria-label="Carne a la parrilla sobre fuego"></div>
+    </section>
+
+    <section class="wagyu section-dark" id="carne">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-index">02 / WAGYU</div>
+          <div>
+            <p class="eyebrow">NO ES SOLO CARNE</p>
+            <h2 class="display light">Es<br><em>marmoleado.</em></h2>
+          </div>
+          <p class="body-copy muted">Cada corte está pensado para dejar que la grasa, la brasa y el tiempo hagan el trabajo. Sin disfrazar el ingrediente.</p>
+        </div>
+
+        <div class="wagyu-frame">
+          <div class="wagyu-photo" data-tilt>
+            <div class="photo-label top-left">RANCHO HUMILDE / 01</div>
+            <div class="photo-label bottom-right">FIRE / MARBLING / FLAVOR</div>
+          </div>
+          <div class="spec spec-a"><span>01</span><b>MARBLING</b><small>El detalle que se ve.</small></div>
+          <div class="spec spec-b"><span>02</span><b>TEXTURE</b><small>El carácter que se siente.</small></div>
+          <div class="spec spec-c"><span>03</span><b>FIRE</b><small>La parrilla que termina la obra.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="carta section-light" id="carta">
+      <div class="container">
+        <div class="section-head light-grid">
+          <div class="section-index">03 / CARTA</div>
+          <div>
+            <p class="eyebrow dark">LA CARTA</p>
+            <h2 class="display dark">Pocos platos.<br><em>Mucho que decir.</em></h2>
+          </div>
+          <p class="body-copy">Una selección conceptual para una carta que deja respirar a la carne. Los nombres y valores mostrados son ficticios.</p>
+        </div>
+        <div class="menu-list">
+          <article class="menu-item"><span class="num">01</span><div><h3>Wagyu Prime Cut</h3><p>Brasa, sal ahumada y jugo reducido.</p></div><strong>$38.900</strong></article>
+          <article class="menu-item"><span class="num">02</span><div><h3>Tomahawk de la Casa</h3><p>Corte al fuego, mantequilla de ajo negro.</p></div><strong>$49.900</strong></article>
+          <article class="menu-item"><span class="num">03</span><div><h3>Carpaccio Ahumado</h3><p>Wagyu, parmesano, aceite de hierbas.</p></div><strong>$18.900</strong></article>
+          <article class="menu-item"><span class="num">04</span><div><h3>Papas Rancho</h3><p>Fritas en grasa de res, sal de hierbas.</p></div><strong>$8.900</strong></article>
+          <article class="menu-item"><span class="num">05</span><div><h3>Chocolate & Sal</h3><p>Ganache oscuro, caramelo salado, cacao.</p></div><strong>$9.900</strong></article>
+        </div>
+        <div class="center"><a href="#reserva" class="text-link dark-link">VER LA CARTA COMPLETA <span>↗</span></a></div>
+      </div>
+    </section>
+
+    <section class="gallery section-dark">
+      <div class="container gallery-head"><div class="section-index">04 / EXPERIENCIA</div><p class="eyebrow">UNA MESA. UN FUEGO. UNA NOCHE.</p></div>
+      <div class="gallery-grid container">
+        <div class="g-photo g1"></div>
+        <div class="g-photo g2"></div>
+        <div class="g-photo g3"></div>
+        <div class="g-photo g4"></div>
+      </div>
+    </section>
+
+    <section class="shows section-light" id="shows">
+      <div class="container">
+        <div class="section-head light-grid">
+          <div class="section-index">05 / SHOWS</div>
+          <div><p class="eyebrow dark">PRÓXIMOS SHOWS</p><h2 class="display dark">Después de la<br><em>última copa.</em></h2></div>
+          <p class="body-copy">Noches de música en vivo, sesiones acústicas y encuentros después de la cena. Programación completamente ficticia.</p>
+        </div>
+        <div class="show-list">
+          <article class="show-item"><div class="date"><span>08</span> NOV</div><div><p>LIVE SESSION</p><h3>Rancho After Dark</h3><small>22:00 · Salón principal</small></div><button class="circle-btn">↗</button></article>
+          <article class="show-item"><div class="date"><span>15</span> NOV</div><div><p>ACOUSTIC NIGHT</p><h3>Fuego & Cuerdas</h3><small>21:30 · Salón principal</small></div><button class="circle-btn">↗</button></article>
+          <article class="show-item"><div class="date"><span>29</span> NOV</div><div><p>SPECIAL</p><h3>Noche Rancho</h3><small>23:00 · Próximamente</small></div><button class="circle-btn">↗</button></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ancud section-dark">
+      <div class="ancud-image" data-parallax="0.08"></div>
+      <div class="ancud-overlay"></div>
+      <div class="container ancud-copy">
+        <p class="eyebrow">06 / ORIGEN</p>
+        <h2 class="display light">Desde Ancud,<br><em>con fuego.</em></h2>
+        <p class="body-copy light-copy">Madera, niebla, costa y noches largas. La identidad del sur aparece en los materiales y en la atmósfera, no en el cliché.</p>
+      </div>
+    </section>
+
+    <section class="reservation section-light" id="reserva">
+      <div class="container reservation-grid">
+        <div><p class="eyebrow dark">RESERVAS</p><h2 class="display dark">Tu mesa<br><em>te espera.</em></h2><p class="body-copy">Proyecto conceptual. Completa el formulario para simular una reserva.</p></div>
+        <form class="booking-form" id="bookingForm">
+          <label>Nombre<input type="text" name="name" placeholder="Tu nombre" required></label>
+          <div class="two-cols"><label>Fecha<input type="date" name="date" required></label><label>Hora<input type="time" name="time" required></label></div>
+          <div class="two-cols"><label>Personas<select name="guests"><option>2 personas</option><option>3 personas</option><option>4 personas</option><option>5 personas</option><option>6+ personas</option></select></label><label>Contacto<input type="email" name="email" placeholder="correo@ejemplo.com" required></label></div>
+          <button class="submit-btn magnetic" type="submit">SOLICITAR RESERVA <span>↗</span></button>
+          <p class="form-note" id="formNote" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer section-dark">
+    <div class="container footer-top">
+      <div><p class="eyebrow">ANCUD · CHILOÉ · CHILE</p><h2 class="footer-brand">RANCHO<br><em>HUMILDE</em></h2></div>
+      <div class="footer-links"><a href="#carta">Carta</a><a href="#experiencia">Experiencia</a><a href="#shows">Shows</a><a href="#reserva">Reservas</a></div>
+    </div>
+    <div class="container footer-bottom"><span>LA PARRILLA HACE LO SUYO, NOSOTROS EL ARTE.</span><span>© <span id="year"></span> RANCHO HUMILDE</span></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
