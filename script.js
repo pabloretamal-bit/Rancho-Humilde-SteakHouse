@@ -1,95 +1,79 @@
-const nav = document.getElementById('nav');
-const menuBtn = document.getElementById('menuBtn');
-const cursorDot = document.querySelector('.cursor-dot');
-const cursorRing = document.querySelector('.cursor-ring');
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
-  if (!prefersReduced) {
-    document.querySelectorAll('[data-parallax]').forEach(el => {
-      const speed = parseFloat(el.dataset.parallax || '0.1');
-      const rect = el.getBoundingClientRect();
-      if (rect.bottom > -200 && rect.top < window.innerHeight + 200) {
-        const offset = (window.innerHeight / 2 - (rect.top + rect.height / 2)) * speed;
-        el.style.transform = `translate3d(0, ${offset}px, 0) scale(1.04)`;
-      }
-    });
-  }
-}, {passive:true});
-
-if (menuBtn) {
-  menuBtn.addEventListener('click', () => {
-    const open = menuBtn.getAttribute('aria-expanded') === 'true';
-    menuBtn.setAttribute('aria-expanded', String(!open));
-    document.body.classList.toggle('menu-open', !open);
-  });
-  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
-    menuBtn.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('menu-open');
-  }));
+const menuItems = {
+  cortes: [
+    ["Flat Iron Wagyu","Marmoleado delicado, sellado a fuego vivo. 250 g.","$15.000","PARA DESCUBRIR"],
+    ["Entraña Angus","Corte intenso y jugoso, terminado con sal de mar. 250 g.","$18.900","FAVORITO"],
+    ["Ribeye Wagyu","Grasa intramuscular y sabor profundo. 300 g.","$29.900","CORTE PREMIUM"],
+    ["New York Strip","Textura firme, sabor limpio y costra dorada. 300 g.","$27.900","CORTE PREMIUM"],
+    ["Tomahawk para compartir","Corte con hueso, ideal para el centro de la mesa. 900 g aprox.","$59.900","PARA COMPARTIR"],
+    ["Picaña a la brasa","Capa exterior dorada y centro rosado. 350 g.","$24.900","DE LA CASA"],
+    ["Filete premium","Suave, delicado y cocinado al punto que prefieras. 250 g.","$22.900","CLÁSICO"],
+    ["Degustación Rancho","Selección de tres cortes para explorar texturas y sabores.","$39.900","EXPERIENCIA"]
+  ],
+  parrilla: [
+    ["Costillar glaseado","Cocción lenta, glaseado de la casa y brasas al final.","$19.900","COCCIÓN LENTA"],
+    ["Pollo de campo a la brasa","Marinado de hierbas, limón y mantequilla tostada.","$15.900","DE LA CASA"],
+    ["Short ribs","Costilla de res de cocción prolongada y jugos intensos.","$23.900","FAVORITO"],
+    ["Brochetas de lomo","Lomo, cebolla morada y pimientos a fuego directo.","$16.900","A LA BRASA"],
+    ["Hamburguesa Humilde","Blend de res, queso maduro, cebolla caramelizada y papas.","$15.000","CLÁSICO"],
+    ["Parrillada para dos","Selección de carnes, chorizo artesanal y acompañamientos.","$42.900","PARA COMPARTIR"]
+  ],
+  entradas: [
+    ["Tártaro de res","Corte a cuchillo, mostaza antigua, alcaparras y tostadas.","$12.900","DE AUTOR"],
+    ["Provoleta a la parrilla","Queso fundido, orégano, tomate asado y pan rústico.","$9.900","PARA COMPARTIR"],
+    ["Empanaditas de osobuco","Relleno de cocción lenta con salsa de la casa.","$8.900","3 UNIDADES"],
+    ["Carpaccio de res","Láminas finas, rúcula, parmesano y aceite de oliva.","$11.900","FRESCO"],
+    ["Chorizo a las brasas","Chorizo parrillero con pebre ahumado.","$7.900","DE LA PARRILLA"],
+    ["Ostras de temporada","Servidas frías con limón y vinagreta suave.","$13.900","SEGÚN DISPONIBILIDAD"]
+  ],
+  acompanamientos: [
+    ["Papas rústicas","Papas doradas, romero y sal de mar.","$4.500","CLÁSICO"],
+    ["Puré cremoso","Puré de papas con mantequilla y pimienta recién molida.","$4.900","CREMOSO"],
+    ["Ensalada de hojas","Hojas frescas, pera, nueces y vinagreta cítrica.","$5.500","FRESCO"],
+    ["Verduras a la brasa","Verduras de estación, aceite de oliva y hierbas.","$5.900","DE TEMPORADA"],
+    ["Choclo a la mantequilla","Choclo dorado con mantequilla de merkén suave.","$4.500","DE LA CASA"],
+    ["Arroz cremoso de hongos","Arroz meloso, hongos salteados y parmesano.","$7.900","RECOMENDADO"],
+    ["Pan de masa madre","Pan tostado con mantequilla batida de hierbas.","$3.900","PARA LA MESA"],
+    ["Pebre ahumado","Tomate, cilantro, cebolla y toque de humo.","$2.500","EXTRA"]
+  ],
+  vinos: [
+    ["Copa de tinto de la casa","Selección rotativa de Cabernet Sauvignon o Carmenère.","$5.900","POR COPA"],
+    ["Carmenère reserva","Fruta negra, especias y final persistente.","$24.900","BOTELLA"],
+    ["Cabernet Sauvignon reserva","Estructura firme, ideal para cortes intensos.","$27.900","BOTELLA"],
+    ["Pinot Noir","Perfil elegante, frutos rojos y taninos suaves.","$29.900","BOTELLA"],
+    ["Malbec","Notas de ciruela, cuerpo medio y final amable.","$26.900","BOTELLA"],
+    ["Espumante brut","Burbuja fina y frescura para comenzar la noche.","$23.900","BOTELLA"],
+    ["Vino blanco sauvignon blanc","Cítrico y fresco; ideal para entradas y mariscos.","$21.900","BOTELLA"]
+  ],
+  bebestibles: [
+    ["Agua mineral","Con o sin gas.","$2.500","330 ML"],
+    ["Bebidas","Variedades tradicionales.","$2.500","LATA"],
+    ["Limonada de la casa","Limón fresco, hielo y menta.","$3.900","SIN ALCOHOL"],
+    ["Tónica botánica","Tónica, cítricos y romero.","$4.500","SIN ALCOHOL"],
+    ["Espresso","Café corto, intenso y aromático.","$2.500","CAFÉ"],
+    ["Americano / cortado","Café recién preparado.","$2.900","CAFÉ"],
+    ["Mocktail ahumado","Manzana, jengibre, cítricos y aroma de romero.","$5.500","SIN ALCOHOL"],
+    ["Cerveza artesanal","Selección de estilos según disponibilidad.","$4.900","330 ML"]
+  ],
+  postres: [
+    ["Volcán de chocolate","Centro tibio, cacao intenso y helado de vainilla.","$7.900","FAVORITO"],
+    ["Crème brûlée","Crema de vainilla con cubierta fina de caramelo.","$6.900","CLÁSICO"],
+    ["Cheesecake de frutos rojos","Textura cremosa, frutos rojos y base crocante.","$6.500","DE LA CASA"],
+    ["Panqueque manjar","Panqueque tibio, manjar y helado artesanal.","$6.900","PARA COMPARTIR"],
+    ["Tabla dulce","Bocados de la casa para cerrar la experiencia.","$9.900","PARA DOS"]
+  ]
+};
+const grid = document.querySelector("#menu-grid");
+const tabs = document.querySelectorAll(".tab");
+function renderMenu(category){
+  grid.innerHTML = menuItems[category].map((item,i)=>`<article class="dish" style="animation-delay:${i*35}ms"><div><h3>${item[0]}</h3><div class="dish-tag">${item[3]}</div></div><div class="dish-price">${item[2]}</div><p>${item[1]}</p></article>`).join("");
+  tabs.forEach(tab=>{const active=tab.dataset.category===category;tab.classList.toggle("active",active);tab.setAttribute("aria-selected",active?"true":"false");});
 }
-
-// Inject a compact mobile overlay menu without extra markup.
-const mobileMenu = document.createElement('div');
-mobileMenu.className = 'mobile-menu';
-mobileMenu.innerHTML = `<a href="#carne">WAGYU</a><a href="#carta">CARTA</a><a href="#experiencia">EXPERIENCIA</a><a href="#shows">SHOWS</a><a href="#reserva">RESERVA</a>`;
-document.body.appendChild(mobileMenu);
-
-document.head.insertAdjacentHTML('beforeend', `<style>
-.mobile-menu{position:fixed;inset:68px 0 auto 0;z-index:45;background:rgba(9,9,8,.98);backdrop-filter:blur(18px);padding:24px 18px;display:grid;gap:2px;transform:translateY(-120%);transition:.45s cubic-bezier(.22,1,.36,1);border-bottom:1px solid rgba(238,233,223,.15)}
-.mobile-menu a{color:#eee9df;text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(238,233,223,.12);font:500 12px 'DM Mono',monospace;letter-spacing:.15em}.menu-open .mobile-menu{transform:none}
-</style>`);
-
-// Reveals
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('revealed'); });
-}, {threshold:.12});
-document.querySelectorAll('.reveal, .display, .menu-item, .show-item, .wagyu-frame').forEach(el => observer.observe(el));
-
-// Custom cursor
-if (window.matchMedia('(min-width: 900px)').matches && !prefersReduced) {
-  let mx = 0, my = 0, dx = 0, dy = 0;
-  window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursorDot.style.left = mx+'px'; cursorDot.style.top = my+'px'; });
-  const animateCursor = () => { dx += (mx-dx)*.12; dy += (my-dy)*.12; cursorRing.style.left = dx+'px'; cursorRing.style.top = dy+'px'; requestAnimationFrame(animateCursor); };
-  animateCursor();
-  document.querySelectorAll('a,button,.menu-item,.show-item').forEach(el => {
-    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
-    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
-  });
-}
-
-// Wagyu micro-tilt
-const tilt = document.querySelector('[data-tilt]');
-if (tilt && !prefersReduced && window.matchMedia('(min-width: 900px)').matches) {
-  tilt.addEventListener('mousemove', e => {
-    const r = tilt.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width-.5; const y=(e.clientY-r.top)/r.height-.5;
-    tilt.style.transform = `scale(1.015) rotateX(${y*-1.2}deg) rotateY(${x*1.4}deg)`;
-  });
-  tilt.addEventListener('mouseleave', () => tilt.style.transform = 'scale(1) rotateX(0) rotateY(0)');
-}
-
-// Magnetic buttons
-if (!prefersReduced && window.matchMedia('(min-width: 900px)').matches) {
-  document.querySelectorAll('.magnetic').forEach(el => {
-    el.addEventListener('mousemove', e => { const r=el.getBoundingClientRect(); const x=(e.clientX-r.left-r.width/2)*.11; const y=(e.clientY-r.top-r.height/2)*.11; el.style.transform=`translate(${x}px,${y}px)`; });
-    el.addEventListener('mouseleave', () => el.style.transform='');
-  });
-}
-
-// Embers
-const embers = document.getElementById('embers');
-if (embers && !prefersReduced) {
-  for (let i=0;i<26;i++) { const s=document.createElement('span'); s.className='ember'; s.style.left=(Math.random()*100)+'%'; s.style.bottom=(Math.random()*12)+'%'; s.style.animationDelay=(Math.random()*5)+'s'; s.style.animationDuration=(4+Math.random()*5)+'s'; s.style.width=s.style.height=(1+Math.random()*3)+'px'; embers.appendChild(s); }
-}
-
-// Demo booking form
-const form = document.getElementById('bookingForm');
-const note = document.getElementById('formNote');
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  note.textContent = 'SOLICITUD RECIBIDA · DEMO CONCEPTUAL';
-  form.reset();
-});
-
-document.getElementById('year').textContent = new Date().getFullYear();
+tabs.forEach(tab=>tab.addEventListener("click",()=>renderMenu(tab.dataset.category)));
+renderMenu("cortes");
+const toggle=document.querySelector(".menu-toggle");
+const nav=document.querySelector(".nav-links");
+toggle.addEventListener("click",()=>{const open=nav.classList.toggle("open");toggle.setAttribute("aria-expanded",String(open));toggle.textContent=open?"×":"☰";});
+nav.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>{nav.classList.remove("open");toggle.setAttribute("aria-expanded","false");toggle.textContent="☰";}));
+const dateInput=document.querySelector('input[name="date"]');
+if(dateInput){const today=new Date();dateInput.min=new Date(today.getTime()-today.getTimezoneOffset()*60000).toISOString().split("T")[0];}
+document.querySelector("#reservation-form").addEventListener("submit",e=>{e.preventDefault();document.querySelector("#form-note").textContent="Gracias. Esta es una demostración: todavía debes conectar el formulario a un servicio de reservas o WhatsApp.";});
